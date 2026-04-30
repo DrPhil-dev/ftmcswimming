@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FTMWSC – Forster Tuncurry Mudcrabs Winter Swimming Club</title>
+    <meta
+      name="description"
+      content="FTMWSC (Forster Tuncurry Mudcrabs Winter Swimming Club) – Sunday mornings at the Forster Ocean Pool. Winter swimming, good company, and a family vibe."
+    />
+
+    <style>
+      :root {
+        /* Light, winter pool theme */
+        --bg: #f6fbff;
+        --bg2: #eef8ff;
+        --card: rgba(255, 255, 255, 0.78);
+        --card2: rgba(255, 255, 255, 0.62);
+        --text: rgba(7, 20, 28, 0.92);
+        --muted: rgba(7, 20, 28, 0.68);
+        --line: rgba(20, 70, 90, 0.14);
+
+        /* Pool + winter sky accents */
+        --accent: #0ea5e9;   /* sky blue */
+        --accent2: #14b8a6;  /* teal */
+        --shadow: 0 18px 60px rgba(8, 30, 45, 0.18);
+        --radius: 18px;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji",
+          "Segoe UI Emoji";
+        color: var(--text);
+        background:
+          radial-gradient(1000px 600px at 18% 0%, rgba(14, 165, 233, 0.20), transparent 55%),
+          radial-gradient(900px 520px at 86% 15%, rgba(20, 184, 166, 0.14), transparent 55%),
+          radial-gradient(800px 520px at 50% 110%, rgba(2, 132, 199, 0.10), transparent 55%),
+          linear-gradient(180deg, var(--bg), var(--bg2));
+      }
+
+      a { color: inherit; }
+      .wrap { max-width: 1100px; margin: 0 auto; padding: 22px; }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(12px);
+        background: rgba(246, 251, 255, 0.72);
+        border-bottom: 1px solid var(--line);
+      }
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 22px;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        min-width: 220px;
+      }
+      .brand img {
+        width: 38px;
+        height: 38px;
+        object-fit: contain;
+        border-radius: 12px;
+        background: rgba(255,255,255,0.85);
+        padding: 6px;
+        border: 1px solid var(--line);
+        box-shadow: 0 10px 24px rgba(8, 30, 45, 0.12);
+      }
+      .brand .title { display: flex; flex-direction: column; line-height: 1.05; }
+      .brand .title strong { font-size: 14px; letter-spacing: 0.2px; }
+      .brand .title span { font-size: 12px; color: var(--muted); }
+
+      nav { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+      nav a {
+        text-decoration: none;
+        font-size: 13px;
+        color: var(--muted);
+        padding: 8px 10px;
+        border-radius: 12px;
+        border: 1px solid transparent;
+      }
+      nav a:hover {
+        color: var(--text);
+        background: rgba(14, 165, 233, 0.10);
+        border-color: rgba(14, 165, 233, 0.20);
+      }
+      nav a.active {
+        color: var(--text);
+        background: rgba(20, 184, 166, 0.10);
+        border-color: rgba(20, 184, 166, 0.22);
+      }
+
+      .hero {
+        margin-top: 22px;
+        border: 1px solid var(--line);
+        border-radius: calc(var(--radius) + 8px);
+        background: linear-gradient(180deg, rgba(255,255,255,0.80), rgba(255,255,255,0.62));
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        position: relative;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(900px 420px at 12% 8%, rgba(14, 165, 233, 0.22), transparent 60%),
+          radial-gradient(760px 420px at 88% 20%, rgba(20, 184, 166, 0.18), transparent 55%);
+        pointer-events: none;
+      }
+      .hero-inner {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 24px;
+        padding: 26px;
+        align-items: center;
+      }
+      @media (max-width: 860px) { .hero-inner { grid-template-columns: 1fr; } }
+
+      h1 { margin: 0 0 8px; font-size: clamp(28px, 3.3vw, 44px); letter-spacing: -0.02em; }
+      .lede { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.55; max-width: 62ch; }
+
+      .pillrow { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+      .pill {
+        border: 1px solid rgba(20, 70, 90, 0.16);
+        background: rgba(255,255,255,0.65);
+        padding: 8px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        color: rgba(7, 20, 28, 0.70);
+      }
+
+      .logoCard {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255,255,255,0.60);
+        padding: 18px;
+        display: grid;
+        place-items: center;
+        box-shadow: 0 14px 40px rgba(8, 30, 45, 0.10);
+      }
+      .logoCard img {
+        width: min(320px, 100%);
+        height: auto;
+        display: block;
+        filter: drop-shadow(0 14px 22px rgba(8, 30, 45, 0.16));
+      }
+
+      .cta { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; }
+      .btn {
+        appearance: none;
+        border: 1px solid rgba(20, 70, 90, 0.18);
+        background: rgba(255,255,255,0.72);
+        color: var(--text);
+        padding: 10px 12px;
+        border-radius: 12px;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: 14px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 10px 22px rgba(8, 30, 45, 0.08);
+      }
+      .btn:hover { background: rgba(255,255,255,0.86); }
+      .btn.primary {
+        border-color: rgba(14, 165, 233, 0.30);
+        background: linear-gradient(180deg, rgba(14, 165, 233, 0.22), rgba(20, 184, 166, 0.14));
+      }
+
+      .grid { margin-top: 16px; display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
+      .card {
+        grid-column: span 6;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--card);
+        padding: 18px;
+        box-shadow: 0 14px 40px rgba(8, 30, 45, 0.09);
+      }
+      .card.wide { grid-column: span 12; }
+      .card.third { grid-column: span 4; }
+      @media (max-width: 900px) { .card, .card.third { grid-column: span 12; } }
+
+      h2 { margin: 0 0 10px; font-size: 18px; letter-spacing: -0.01em; }
+      p { margin: 0; color: var(--muted); line-height: 1.6; }
+
+      .list { margin: 10px 0 0; padding: 0; list-style: none; }
+      .list li {
+        padding: 10px 0;
+        border-top: 1px solid rgba(20, 70, 90, 0.12);
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .list li:first-child { border-top: none; padding-top: 0; }
+      .label { color: var(--muted); font-size: 13px; }
+      .value { font-size: 14px; }
+
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+        border: 1px solid rgba(20, 70, 90, 0.14);
+        border-radius: 14px;
+        overflow: hidden;
+        background: rgba(255,255,255,0.68);
+      }
+      .table th, .table td {
+        text-align: left;
+        padding: 10px 12px;
+        border-bottom: 1px solid rgba(20, 70, 90, 0.12);
+        vertical-align: top;
+      }
+      .table th { color: var(--text); font-size: 13px; background: rgba(14, 165, 233, 0.08); }
+      .table td { color: var(--muted); font-size: 13px; }
+      .table tr:last-child td { border-bottom: none; }
+
+      .officerToggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px;
+        border: 1px solid rgba(20, 70, 90, 0.14);
+        border-radius: 14px;
+        background: rgba(14, 165, 233, 0.08);
+        margin: 12px 0 0;
+      }
+      .toggleBtn {
+        border: 1px solid rgba(20, 70, 90, 0.16);
+        background: rgba(255,255,255,0.78);
+        padding: 9px 10px;
+        border-radius: 12px;
+        cursor: pointer;
+        color: var(--text);
+        font-size: 13px;
+      }
+      .toggleBtn:hover { background: rgba(255,255,255,0.90); }
+
+      .officers { margin-top: 12px; display: none; }
+      .officers.show { display: block; }
+
+      .officerGrid { margin-top: 10px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      @media (max-width: 620px) { .officerGrid { grid-template-columns: 1fr; } }
+      .person {
+        border: 1px solid rgba(20, 70, 90, 0.14);
+        background: rgba(255,255,255,0.72);
+        border-radius: 14px;
+        padding: 12px;
+      }
+      .role { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+      .name { font-size: 14px; color: var(--text); }
+
+      .gallery { margin-top: 10px; display: grid; grid-template-columns: repeat(12, 1fr); gap: 10px; }
+      .photo {
+        grid-column: span 4;
+        border: 1px solid rgba(20, 70, 90, 0.14);
+        border-radius: 14px;
+        background: rgba(255,255,255,0.72);
+        padding: 12px;
+      }
+      @media (max-width: 900px) { .photo { grid-column: span 6; } }
+      @media (max-width: 620px) { .photo { grid-column: span 12; } }
+
+      footer {
+        margin: 24px 0 10px;
+        padding: 18px 0 0;
+        border-top: 1px solid rgba(20, 70, 90, 0.14);
+        color: rgba(7, 20, 28, 0.62);
+        font-size: 12px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+      .smalllinks a { color: rgba(7, 20, 28, 0.62); text-decoration: none; }
+      .smalllinks a:hover { color: var(--text); }
+
+      .kbd {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size: 11px;
+        padding: 3px 7px;
+        border: 1px solid rgba(20, 70, 90, 0.16);
+        border-radius: 8px;
+        background: rgba(255,255,255,0.70);
+        color: rgba(7, 20, 28, 0.70);
+      }
+
+      section[id] { scroll-margin-top: 88px; }
+    </style>
+  </head>
+
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a class="brand" href="#home">
+          <img src="https://mudcrabs.pages.dev/logo.png" alt="Mudcrabs logo" />
+          <div class="title">
+            <strong>FTMWSC</strong>
+            <span>Forster Tuncurry Mudcrabs</span>
+          </div>
+        </a>
+
+        <nav aria-label="Primary">
+          <a href="#home" data-section="home">Home</a>
+          <a href="#results" data-section="results">Results</a>
+          <a href="#calendar" data-section="calendar">Calendar</a>
+          <a href="#gallery" data-section="gallery">Gallery</a>
+          <a href="#documents" data-section="documents">Documents</a>
+          <a href="#contact" data-section="contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <!-- HOME -->
+      <section class="hero" id="home" aria-label="Home">
+        <div class="hero-inner">
+          <div>
+            <h1>Forster Tuncurry Mudcrabs Winter Swimming Club</h1>
+            <p class="lede">
+              Sunday mornings at the Forster Ocean Pool. Crisp air, clear water, good company.
+            </p>
+
+            <div class="pillrow">
+              <div class="pill">Season: May – September</div>
+              <div class="pill">Races: 9:00am Sundays</div>
+              <div class="pill">All ages welcome</div>
+              <div class="pill">Forster Ocean Pool</div>
+            </div>
+
+            <div class="cta">
+              <a class="btn primary" href="#contact">Join / Visit</a>
+              <a class="btn" href="https://www.facebook.com/forstertuncurrymudcrabs/" target="_blank" rel="noreferrer">Facebook</a>
+              <a class="btn" href="https://www.wsaainc.com/forstertuncurry-mudcrabs.html" target="_blank" rel="noreferrer">WSA listing</a>
+            </div>
+          </div>
+
+          <div class="logoCard" aria-label="Club logo">
+            <img src="https://mudcrabs.pages.dev/logo.png" alt="Forster Tuncurry Mudcrabs logo" />
+          </div>
+        </div>
+      </section>
+
+      <section class="grid" aria-label="Home blocks">
+        <article class="card">
+          <h2>When and where</h2>
+          <ul class="list">
+            <li><span class="label">Location</span><span class="value">Forster Ocean Pool (Forster, NSW)</span></li>
+            <li><span class="label">Season</span><span class="value">First Sunday in May – last Sunday in September</span></li>
+            <li><span class="label">Race time</span><span class="value">9:00am</span></li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>New swimmers</h2>
+          <p>
+            Turn up a little early on a Sunday and say hello, or message us on Facebook.
+            If you’re new, we’ll help you slot in quickly.
+          </p>
+          <div class="cta">
+            <a class="btn primary" href="https://www.facebook.com/forstertuncurrymudcrabs/" target="_blank" rel="noreferrer">
+              Message the club
+            </a>
+          </div>
+        </article>
+
+        <article class="card wide">
+          <h2>About the Mudcrabs</h2>
+          <p>
+            Established in 1980, the club is known for its welcoming, family feel and a great mix of ages and abilities.
+            Originally known as “The Cold Tooths”, the club changed to the Mudcrabs in the mid-eighties.
+          </p>
+        </article>
+      </section>
+
+      <!-- RESULTS -->
+      <section class="hero" id="results" aria-label="Results">
+        <div class="hero-inner">
+          <div>
+            <h1>Results</h1>
+            <p class="lede">
+              Add weekly results here. Keep it simple: date, event, winner, notes.
+            </p>
+            <div class="pillrow">
+              <div class="pill">Copy a row and edit</div>
+              <div class="pill">Optional: link PDFs in Documents</div>
+            </div>
+          </div>
+          <div class="logoCard">
+            <img src="https://mudcrabs.pages.dev/logo.png" alt="Mudcrabs logo" />
+          </div>
+        </div>
+      </section>
+
+      <section class="grid" aria-label="Results blocks">
+        <article class="card wide">
+          <h2>Weekly results</h2>
+          <p>Replace these example rows with the real thing.</p>
+
+          <table class="table" aria-label="Weekly results table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Event</th>
+                <th>Winner</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2026-05-03</td>
+                <td>Season opener (example)</td>
+                <td>Firstname Lastname</td>
+                <td>Clear skies, calm water</td>
+              </tr>
+              <tr>
+                <td>2026-05-10</td>
+                <td>200m handicap (example)</td>
+                <td>Firstname Lastname</td>
+                <td>Close finish</td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+
+        <article class="card">
+          <h2>Season highlights</h2>
+          <p>
+            Add winners, club champs, personal bests, visiting swimmers, anything worth celebrating.
+          </p>
+        </article>
+
+        <article class="card">
+          <h2>Admin tip</h2>
+          <p>
+            If you store PDFs, name them neatly like <span class="kbd">2026-05-10-results.pdf</span> and link them below in Documents.
+          </p>
+        </article>
+      </section>
+
+      <!-- CALENDAR -->
+      <section class="hero" id="calendar" aria-label="Calendar">
+        <div class="hero-inner">
+          <div>
+            <h1>Calendar</h1>
+            <p class="lede">
+              Use this for race dates, club events, and reminders. Start simple with a list.
+            </p>
+            <div class="pillrow">
+              <div class="pill">Option: add Google Calendar later</div>
+              <div class="pill">Keep key dates visible</div>
+            </div>
+          </div>
+          <div class="logoCard">
+            <img src="https://mudcrabs.pages.dev/logo.png" alt="Mudcrabs logo" />
+          </div>
+        </div>
+      </section>
+
+      <section class="grid" aria-label="Calendar blocks">
+        <article class="card wide">
+          <h2>Key dates</h2>
+          <table class="table" aria-label="Calendar list">
+            <thead>
+              <tr><th>Date</th><th>What</th><th>Notes</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>First Sunday in May</td><td>Season starts</td><td>9:00am</td></tr>
+              <tr><td>Last Sunday in September</td><td>Season ends</td><td>9:00am</td></tr>
+            </tbody>
+          </table>
+        </article>
+
+        <article class="card wide">
+          <h2>Optional: embed a Google Calendar</h2>
+          <p>
+            When you have a club Google Calendar, paste its embed iframe here and it will show nicely.
+          </p>
+        </article>
+      </section>
+
+      <!-- GALLERY -->
+      <section class="hero" id="gallery" aria-label="Gallery">
+        <div class="hero-inner">
+          <div>
+            <h1>Gallery</h1>
+            <p class="lede">
+              Keep photos on Facebook for easy sharing, and optionally feature a few highlights here.
+            </p>
+            <div class="cta">
+              <a class="btn primary" href="https://www.facebook.com/forstertuncurrymudcrabs/" target="_blank" rel="noreferrer">
+                View on Facebook
+              </a>
+            </div>
+          </div>
+          <div class="logoCard">
+            <img src="https://mudcrabs.pages.dev/logo.png" alt="Mudcrabs logo" />
+          </div>
+        </div>
+      </section>
+
+      <section class="grid" aria-label="Gallery blocks">
+        <article class="card wide">
+          <h2>Featured photos (optional)</h2>
+          <p>
+            Add a few favourite shots here later, or keep everything on Facebook and leave this as-is.
+          </p>
+
+          <div class="gallery" aria-label="Gallery grid">
+            <div class="photo">
+              <div class="role">Placeholder</div>
+              <div class="name">Morning light at the pool</div>
+            </div>
+            <div class="photo">
+              <div class="role">Placeholder</div>
+              <div class="name">Winter swim crew</div>
+            </div>
+            <div class="photo">
+              <div class="role">Placeholder</div>
+              <div class="name">Post-swim warm-up</div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- DOCUMENTS -->
+      <section class="hero" id="documents" aria-label="Documents">
+        <div class="hero-inner">
+          <div>
+            <h1>Documents</h1>
+            <p class="lede">
+              Put PDFs, forms, and useful links here. Stable links you can share to members.
+            </p>
+            <div class="pillrow">
+              <div class="pill">Example: membership-form.pdf</div>
+              <div class="pill">Example: 2026-05-10-results.pdf</div>
+            </div>
+          </div>
+          <div class="logoCard">
+            <img src="https://mudcrabs.pages.dev/logo.png" alt="Mudcrabs logo" />
+          </div>
+        </div>
+      </section>
+
+      <section class="grid" aria-label="Documents blocks">
+        <article class="card wide">
+          <h2>Downloads</h2>
+          <p>
+            Replace the “Add link” buttons with real links later. If you store files on Google Drive, link to them here too.
+          </p>
+
+          <ul class="list" aria-label="Document links">
+            <li>
+              <span class="label">Membership form</span>
+              <span class="value"><a class="btn" href="#" onclick="return false;">Add link</a></span>
+            </li>
+            <li>
+              <span class="label">Club rules / safety</span>
+              <span class="value"><a class="btn" href="#" onclick="return false;">Add link</a></span>
+            </li>
+            <li>
+              <span class="label">Results PDFs</span>
+              <span class="value"><a class="btn" href="#results">Go to Results</a></span>
+            </li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>Useful links</h2>
+          <div class="cta" style="margin-top: 8px;">
+            <a class="btn" href="https://www.wsaainc.com/forstertuncurry-mudcrabs.html" target="_blank" rel="noreferrer">
+              WSA club listing
+            </a>
+            <a class="btn" href="https://www.facebook.com/forstertuncurrymudcrabs/" target="_blank" rel="noreferrer">
+              Club Facebook
+            </a>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>Admin tip</h2>
+          <p>
+            Keep filenames consistent and short. If you want, I can switch this to auto load a list from a single JSON file.
+          </p>
+        </article>
+      </section>
+
+      <!-- CONTACT -->
+      <section class="hero" id="contact" aria-label="Contact">
+        <div class="hero-inner">
+          <div>
+            <h1>Contact</h1>
+            <p class="lede">
+              Best contact is via Facebook. If you create a club email later, add it here too.
+            </p>
+            <div class="cta">
+              <a class="btn primary" href="https://www.facebook.com/forstertuncurrymudcrabs/" target="_blank" rel="noreferrer">
+                Message on Facebook
+              </a>
+            </div>
+          </div>
+          <div class="logoCard">
+            <img src="https://mudcrabs.pages.dev/logo.png" alt="Mudcrabs logo" />
+          </div>
+        </div>
+      </section>
+
+      <section class="grid" aria-label="Contact blocks">
+        <article class="card wide">
+          <h2>Office bearers</h2>
+          <p>
+            Hidden by default. Toggle on this page, or share a link with <span class="kbd">?officers=1</span>.
+          </p>
+
+          <div class="officerToggle" aria-label="Office bearers toggle">
+            <div>
+              <div style="font-size: 13px;">Office bearers</div>
+              <div style="color: var(--muted); font-size: 12px; margin-top: 2px;">
+                Public friendly: hidden by default
+              </div>
+            </div>
+            <button class="toggleBtn" id="toggleOfficers" type="button">Show</button>
+          </div>
+
+          <div class="officers" id="officers">
+            <div class="officerGrid" aria-label="Committee list">
+              <div class="person"><div class="role">President</div><div class="name">Tim Cusack</div></div>
+              <div class="person"><div class="role">Vice President</div><div class="name">Gary Bridgement</div></div>
+              <div class="person"><div class="role">Secretary</div><div class="name">Shaun Davison</div></div>
+              <div class="person"><div class="role">Treasurer</div><div class="name">Nicole Lazarou</div></div>
+              <div class="person"><div class="role">Club Captain</div><div class="name">Matt Manning</div></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>Optional: club email</h2>
+          <p>
+            When you have a club email, I can add a proper “Email us” button here.
+          </p>
+        </article>
+
+        <article class="card">
+          <h2>Optional: map link</h2>
+          <p>
+            Add a Google Maps link to Forster Ocean Pool for newcomers.
+          </p>
+        </article>
+      </section>
+
+      <footer>
+        <div>© <span id="year"></span> FTMWSC</div>
+        <div class="smalllinks">
+          <a href="#home">Home</a>
+          <span style="opacity: 0.5;"> · </span>
+          <a href="https://www.wsaainc.com/forstertuncurry-mudcrabs.html" target="_blank" rel="noreferrer">WSA listing</a>
+          <span style="opacity: 0.5;"> · </span>
+          <a href="https://www.facebook.com/forstertuncurrymudcrabs/" target="_blank" rel="noreferrer">Facebook</a>
+        </div>
+      </footer>
+    </main>
+
+    <script>
+      // Footer year
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Officers show/hide (default hidden, unless URL says ?officers=1)
+      (function () {
+        const officersEl = document.getElementById("officers");
+        const toggleBtn = document.getElementById("toggleOfficers");
+        if (!officersEl || !toggleBtn) return;
+
+        function setVisible(isVisible) {
+          officersEl.classList.toggle("show", isVisible);
+          toggleBtn.textContent = isVisible ? "Hide" : "Show";
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        const forceShow = params.get("officers") === "1" || params.get("officers") === "true";
+        setVisible(forceShow);
+
+        toggleBtn.addEventListener("click", () => {
+          setVisible(!officersEl.classList.contains("show"));
+        });
+      })();
+
+      // Nav highlight based on scroll position
+      (function () {
+        const links = Array.from(document.querySelectorAll("nav a[data-section]"));
+        const sections = links
+          .map((a) => document.getElementById(a.getAttribute("data-section")))
+          .filter(Boolean);
+
+        const setActive = (id) => {
+          links.forEach((a) => a.classList.toggle("active", a.getAttribute("data-section") === id));
+        };
+
+        const obs = new IntersectionObserver(
+          (entries) => {
+            const visible = entries
+              .filter((e) => e.isIntersecting)
+              .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+            if (visible && visible.target && visible.target.id) setActive(visible.target.id);
+          },
+          { root: null, threshold: [0.2, 0.35, 0.5, 0.65] }
+        );
+
+        sections.forEach((s) => obs.observe(s));
+        setActive("home");
+      })();
+    </script>
+  </body>
+</html>
